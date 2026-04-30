@@ -24,6 +24,7 @@ suma_entre m n
 --suma_entre 2 5 = 14
 
 {--
+
 suma_entre 2 5
 = 2 + (suma_entre 3 5)
 = 2 + (3 + (suma_entre 4 5))
@@ -33,6 +34,7 @@ suma_entre 2 5
 = 2 + (3 + 9)
 = 2 + 12
 = 14
+
 --}
 
 --2.
@@ -70,11 +72,13 @@ suma_entre' 2 5
 
 --4.
 suma_entre_f :: (N -> N) -> N -> N -> N
-suma_entre_f f m n = undefined
+suma_entre_f f m n
+    | m > n = 0
+	| otherwise = f n + (suma_entre_f f m (n - 1))
 
 --5.
 suma_i :: N -> N
-suma_i n = undefined
+suma_i n  = suma_entre_f (\x -> x) 0 n
 
 --------------
 --PROBLEMA 2--
