@@ -22,6 +22,7 @@ suma_entre m n
 
 --1.
 --suma_entre 2 5 = 14
+
 {--
 suma_entre 2 5
 = 2 + (suma_entre 3 5)
@@ -32,7 +33,6 @@ suma_entre 2 5
 = 2 + (3 + 9)
 = 2 + 12
 = 14
-
 --}
 
 --2.
@@ -47,8 +47,26 @@ cada recursión.
 --}
 
 --3.
+
 suma_entre' :: N -> N -> N
-suma_entre' m n = undefined
+suma_entre' m n
+    | m > n = 0
+	| otherwise = n + (suma_entre' m (n - 1))
+
+{--
+
+suma_entre' 2 5
+= 5 + (suma_entre'(2 4))
+= 5 + (4 + (suma_entre'(2 3)))
+= 5 + (4 + (3 + (suma_entre'(2 2))))
+= 5 + (4 + (3 + (2 + (suma_entre'(2 1)))))
+= 5 + (4 + (3 + (2 + 0)))
+= 5 + (4 + (3 + 2))
+= 5 + (4 + 5)
+= 5 + 9
+= 14
+
+--}
 
 --4.
 suma_entre_f :: (N -> N) -> N -> N -> N
