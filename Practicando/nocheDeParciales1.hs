@@ -279,3 +279,138 @@ sumaPares n
     | n == 0 = 0
     | esPar n = n + sumaPares (n - 1)
     | otherwise = sumaPares (n - 1)
+
+-- Prueba: Parcial 1 - Nocturno, 13/05/2025 (archivo: 20250513ParNocLyMD.pdf, página 2)  
+
+{--
+1. 
+    Definir la función productoria_f_mn :: N -> N -> (N -> N) -> N, que dados dos naturales m y n, y una función f, 
+    calcula la productoria entre m y n aplicando f a cada factor.
+Ejemplos:
+
+   productoria_f_mn 1 4 (+1) = 2 * 3 * 4 * 5
+   productoria_f_mn 2 4 (*3) = 6 * 9 * 12
+
+--}
+productoria_f_mn :: N -> N -> (N -> N) -> N
+productoria_f_mn m n f
+    | m > n = 1
+    | otherwise = (f m) * productoria_f_mn (m + 1) n f 
+{--
+2.  Definir la función factAsc :: N -> N -> N, que dados dos naturales m y n, 
+    calcula el factorial ascendente de m con n lugares hacia adelante.
+Ejemplos:
+
+   factAsc 4 6 = 4 * 5 * 6 * 7 * 8 * 9
+   factAsc 7 3 = 7 * 8 * 9
+   factAsc 1 5 = 1 * 2 * 3 * 4 * 5
+   factAsc 6 1 = 6
+   factAsc 6 0 = 1
+--}
+factAsc :: N -> N -> N
+factAsc m n 
+    | n == 0 = 1
+    | n == 1 = m 
+    | otherwise = (m + (n-1)) * factAsc m (n - 1)
+
+-- 3 Redefinir en una línea la función factAsc haciendo uso de la función productoria_f_mn.
+factAsc' :: N -> N -> N
+factAsc' m n = productoria_f_mn m ( m + (n - 1)) (*1)
+
+-- Prueba: Parcial 1 - Matutino, 14/10/2024 (archivo: 20241014ParMatLyMD.pdf, página 2)
+
+{--
+1. Definir la función negar :: Bool -> N -> Bool, que dado un booleano x y un natural n, 
+    aplica n veces la función not al parámetro x.
+Ejemplos:
+
+   negar True 3 = not(not(not(True))) = False
+   negar True 0 = True
+--}
+negar :: Bool -> N -> Bool
+negar x n
+    | n == 0 = x
+    | otherwise = not (negar x (n -1))
+
+{--
+2.  Definir la función noCumple :: (N -> Bool) -> N -> N -> Bool, que dado un predicado p y dos naturales m y n, 
+    devuelve True si y sólo si existe un natural i perteneciente al intervalo cerrado [m,n] que no cumple con el predicado p.
+Ejemplos:
+
+   noCumple (<4) 2 4 = True
+   noCumple (>0) 2 4 = False
+--}
+noCumple :: (N -> Bool) -> N -> N -> Bool
+noCumple p m n 
+    | m == n = not (p m )
+    | not(p m) = True
+    | otherwise = noCumple p (m + 1) n
+
+--Prueba: Parcial 1 - Nocturno, 09/10/2025 (archivo: 20251009ParNocLyMD.pdf, página 1)
+
+{-- Sea la siguiente función definida en Haskell (esto es contexto, ya está dada):
+nexus :: Bool -> Bool -> Bool
+nexus x y = (x && y) || (not x && not y)
+Reprogramar la función anterior sin usar operaciones predefinidas como not, &&, ||, ==, únicamente con definiciones por casos.
+--}
+nexus :: Bool -> Bool -> Bool
+nexus True True = True
+nexus False False = True
+nexus _ _ = False
+
+-- Prueba: Parcial 1 - Matutino, 09/10/2025 (archivo: 20251009ParMatLyMD.pdf, página 1)
+-- Problema 1 — parte 1 
+{--
+x y z   ter
+T T T   F
+T T F   F
+T F T   T *
+T F F   T *
+F T T   F
+F T F   F
+F F T   F
+F F F   T *
+
+Programar en tres líneas o menos, la conectiva ternaria 
+    ter :: Bool -> Bool -> Bool -> Bool representada por la tabla de verdad definida previamente.
+--}
+ter :: Bool -> Bool -> Bool -> Bool
+ter x y z = if (x && not y && not z) || (x && not y && z) || (not x && not y && not z) then True else False
+{-- podia ser sin if 
+ter x y z = (x && not y && not z) || (x && not y && z) || (not x && not y && not z)  
+--}
+
+--Prueba: Parcial 1 - Matutino, 14/10/2024 (archivo: 20241014ParMatLyMD.pdf, página 1)
+{--
+Problema 1 — parte 1 
+    Programar en Haskell la siguiente conectiva ternaria:
+    ter :: Bool -> Bool -> Bool -> Bool, que dados x, y, z de tipo Bool, 
+    retorna True si al menos 2 de sus argumentos son False o cuando z es False.
+--}
+ter' :: Bool -> Bool -> Bool -> Bool
+ter' False False _ = True
+ter' _ _ False = True
+ter' _ _ _ = False
+
+--B2 — Parcial Nocturno 14/10/2021 (LogMD_202110_p1n.pdf, página 2)
+{--Problema 3:
+
+1. Definir la función esImpar :: Int -> Bool, que dado un natural n retorna si n es impar.
+--}
+esImpar :: Int -> Bool
+esImpar x
+    | x == 0 = False
+    | x == 1 = True
+    | otherwise = esImpar (x - 2)
+
+{--
+2.  Definir la función sumaImpares :: (Int -> Int) -> Int -> Int, que recibe una función f y un natural n, 
+    y computa la suma de los valores (f i), siendo i un número impar entre 0 y n.
+
+Ejemplo: sumaImpares (*2) 5 = (1*2) + (3*2) + (5*2) = 18
+--}
+sumaImpares :: (Int -> Int) -> Int -> Int
+sumaImpares f n 
+    | n == 0 = 0
+    | esImpar n = f n + sumaImpares f (n - 1)
+    | otherwise = sumaImpares f (n - 1)
