@@ -22,4 +22,3 @@ type N = Int
 
 productoPares :: N -> N -> N
 productoPares m n = if m > n then productoDivisibles n m 2 else productoDivisibles m n 2 
-

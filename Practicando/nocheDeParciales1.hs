@@ -414,3 +414,5 @@ sumaImpares f n
     | n == 0 = 0
     | esImpar n = f n + sumaImpares f (n - 1)
     | otherwise = sumaImpares f (n - 1)
+
+-- Parcial 13/05/2026
