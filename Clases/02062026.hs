@@ -35,3 +35,10 @@ agregarDigito (t:ts) = agregar06 t ++ agregarDigito ts
 tirasNDigitos :: Int -> [Tira]
 tirasNDigitos 0 = [[]]
 tirasNDigitos n = agregarDigito (tirasNDigitos (n - 1))
+
+-- Esto genera permutaciones con repeticion
+{--
+    PR(n,r) = n^r
+    n = cantidad de objetos
+    r = largo
+--}
