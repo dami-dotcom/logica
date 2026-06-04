@@ -42,3 +42,5 @@ tirasNDigitos n = agregarDigito (tirasNDigitos (n - 1))
     n = cantidad de objetos
     r = largo
 --}
+
+-- Importa el orden, se permite la repeticion
