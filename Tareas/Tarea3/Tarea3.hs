@@ -47,6 +47,7 @@ interseccion :: Eq a => [a] -> [a] -> [a]
 interseccion [] ys = []
 interseccion xs [] = []
 interseccion (x:xs) ys
+    | elem x xs = interseccion xs ys
     | elem x ys = x : interseccion xs ys
     | otherwise = interseccion xs ys
 
