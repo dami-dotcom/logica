@@ -30,6 +30,52 @@ sufijo p (x:xs)
 {--
 (∀ xs::[a]) (∀p::(a− > Bool)) ((prefijo p xs) ++ (sufijo p xs) = xs)
 
+Caso base:  
+
+Tesis: (∀p) prefijo p [] ++ sufijo p [] = []
+
+prefijo p [] ++ sufijo p []
+=
+  [] ++ sufijo p []           (por caso base de prefijo)
+=
+  sufijo p []                 (por caso base de ++)
+=
+  []                          (por caso base de sufijo)
+
+
+Paso inductivo:
+
+Hipotesis: prefijo p xs ++ sufijo p xs = xs.   
+
+Tesis: prefijo p (x:xs) ++ sufijo p (x:xs) = (x:xs)
+
+
+1. Caso p x:
+
+prefijo p (x:xs) ++ sufijo p (x:xs)
+=
+(x : prefijo p xs) ++ sufijo p (x:xs)   (por prefijo, vale p x)
+=
+(x : prefijo p xs) ++ sufijo p xs       (por sufijo, vale p x)
+=
+x : (prefijo p xs ++ sufijo p xs)       (por caso recursivo de ++)
+=
+x : xs                                  (por hipótesis de inducción)
+
+2. Caso ¬(p x): (yo lo hice con otherwise en el codigo)
+
+prefijo p (x:xs) ++ sufijo p (x:xs)
+=
+[] ++ sufijo p (x:xs)       (por prefijo, no vale p x)
+=
+sufijo p (x:xs)             (por caso base de ++)
+=
+x : xs                      (por sufijo, no vale p x)
+
+En ambos casos llegue a x : xs , por lo que queda demostrado.
+
+--}
+
 -}
 
 --------------------
